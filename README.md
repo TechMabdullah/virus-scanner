@@ -101,17 +101,6 @@ automatically (see `vite.config.js`).
 4. The history list re-fetches from `GET /api/scan/history` and animates the
    new entry in.
 
-## Login System
-
-Terminal style login system
-1. type: start user-login   or   start user-register ↓
-2. start user-login (login using existing user@password)
-enter: user-login=<username>@<password>
-3. start user-register (register new user. Username required, and password must be at least 6 characters.)
-enter: user-register=<username>@<password>
-4. After creating an acc or using existing log in
-
-
 ## Notes / things you may want to change
 
 - There's no auth on the API — fine for local/personal use, but add some
