@@ -90,7 +90,29 @@ npm run dev
 Opens on `http://localhost:5173` and proxies `/api` calls to the backend
 automatically (see `vite.config.js`).
 
-## How it works
+## Deploying
+
+Vercel builds one app per project, and your Express+MongoDB backend isn't a
+good fit for Vercel's serverless model anyway — so deploy the two halves
+separately:
+
+**Frontend → Vercel**
+1. Import the repo into Vercel
+2. In Project Settings → **Root Directory**, set it to `client`
+3. Add an environment variable `VITE_API_URL` = your backend's deployed URL (see below)
+4. Deploy — `client/vercel.json` handles SPA routing so refreshing on any page works
+
+**Backend → Render, Railway, or Fly.io** (anything that runs a normal Node process)
+1. New service, point it at this repo, set **Root Directory** to `server`
+2. Build command: `npm install` · Start command: `npm start`
+3. Add your `VT_API_KEY`, `MONGO_URI`, `JWT_SECRET`, and `PORT` env vars
+4. Set `CLIENT_ORIGIN` to your Vercel URL (e.g. `https://sentinel.vercel.app`) so CORS allows it
+5. Copy the resulting backend URL into the frontend's `VITE_API_URL`
+
+Locally, none of this matters — `npm run dev` in `client/` still proxies
+`/api` straight to `localhost:5000` as before.
+
+
 
 1. You upload a file or paste a URL.
 2. The backend submits it to VirusTotal (`POST /files` or `POST /urls`), gets

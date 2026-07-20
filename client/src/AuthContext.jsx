@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState, useCallback } from "react";
-import axios from "axios";
+import api from "./api.js";
 
 const AuthContext = createContext(null);
 
@@ -10,9 +10,9 @@ export function AuthProvider({ children }) {
 
   useEffect(() => {
     if (token) {
-      axios.defaults.headers.common.Authorization = `Bearer ${token}`;
+      api.defaults.headers.common.Authorization = `Bearer ${token}`;
     } else {
-      delete axios.defaults.headers.common.Authorization;
+      delete api.defaults.headers.common.Authorization;
     }
   }, [token]);
 
@@ -24,7 +24,7 @@ export function AuthProvider({ children }) {
         return;
       }
       try {
-        await axios.get("/api/auth/me");
+        await api.get("/api/auth/me");
       } catch {
         logout();
       } finally {
@@ -36,12 +36,12 @@ export function AuthProvider({ children }) {
   }, []);
 
   const login = useCallback(async (username, password) => {
-    const res = await axios.post("/api/auth/login", { username, password });
+    const res = await api.post("/api/auth/login", { username, password });
     persist(res.data);
   }, []);
 
   const register = useCallback(async (username, password) => {
-    const res = await axios.post("/api/auth/register", { username, password });
+    const res = await api.post("/api/auth/register", { username, password });
     persist(res.data);
   }, []);
 

@@ -33,7 +33,7 @@ export default function MatrixRain({ intensity = "normal" }) {
       }
       lastDraw = ts;
 
-      ctx.fillStyle = high ? "rgba(13, 15, 12, 0.12)" : "rgba(13, 15, 12, 0.18)";
+      ctx.fillStyle = high ? "rgba(245, 239, 225, 0.14)" : "rgba(245, 239, 225, 0.2)";
       ctx.fillRect(0, 0, width, height);
       ctx.font = `${fontSize}px monospace`;
 
@@ -44,11 +44,11 @@ export default function MatrixRain({ intensity = "normal" }) {
         const isLeader = Math.random() > (high ? 0.85 : 0.94);
         ctx.fillStyle = isLeader
           ? high
-            ? "#eafff0"
-            : "#bfe8c9"
+            ? "#3f5941"
+            : "#5c7a5e"
           : high
-          ? "rgba(127, 191, 143, 0.8)"
-          : "rgba(111, 156, 122, 0.55)";
+          ? "rgba(92, 122, 94, 0.55)"
+          : "rgba(92, 122, 94, 0.28)";
         ctx.fillText(char, x, y);
 
         if (y > height && Math.random() > 0.975) {

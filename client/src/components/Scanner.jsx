@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import axios from "axios";
+import api from "../api.js";
 import RadarSweep from "./RadarSweep.jsx";
 
 const verdictLabel = {
@@ -31,11 +31,11 @@ export default function Scanner({ onScanComplete }) {
       if (mode === "file") {
         const form = new FormData();
         form.append("file", file);
-        res = await axios.post("/api/scan/file", form, {
+        res = await api.post("/api/scan/file", form, {
           headers: { "Content-Type": "multipart/form-data" },
         });
       } else {
-        res = await axios.post("/api/scan/url", { url: url.trim() });
+        res = await api.post("/api/scan/url", { url: url.trim() });
       }
       setResult(res.data);
       onScanComplete?.(res.data);

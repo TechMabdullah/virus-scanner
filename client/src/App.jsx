@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { motion } from "framer-motion";
 import Scanner from "./components/Scanner.jsx";
 import History from "./components/History.jsx";
 import TerminalAuth from "./components/TerminalAuth.jsx";
@@ -19,8 +20,18 @@ export default function App() {
   }
 
   return (
-    <div className="app-shell">
-      <div className="topbar">
+    <motion.div
+      className="app-shell"
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.45, ease: "easeOut" }}
+    >
+      <motion.div
+        className="topbar"
+        initial={{ opacity: 0, y: -8 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, delay: 0.05 }}
+      >
         <div className="brand">
           <span className="dot" />
           <div>
@@ -36,11 +47,23 @@ export default function App() {
             log out
           </button>
         </div>
-      </div>
+      </motion.div>
 
-      <Scanner onScanComplete={() => setRefreshKey((k) => k + 1)} />
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.45, delay: 0.12 }}
+      >
+        <Scanner onScanComplete={() => setRefreshKey((k) => k + 1)} />
+      </motion.div>
 
-      <History refreshKey={refreshKey} />
-    </div>
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.45, delay: 0.2 }}
+      >
+        <History refreshKey={refreshKey} />
+      </motion.div>
+    </motion.div>
   );
 }

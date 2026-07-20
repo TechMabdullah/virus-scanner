@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import axios from "axios";
+import api from "../api.js";
 
 function timeAgo(dateStr) {
   const diff = Date.now() - new Date(dateStr).getTime();
@@ -18,7 +18,7 @@ export default function History({ refreshKey }) {
 
   const load = useCallback(async () => {
     try {
-      const res = await axios.get("/api/scan/history");
+      const res = await api.get("/api/scan/history");
       setItems(res.data);
     } catch {
       // silent — history is non-critical to the main flow
@@ -32,7 +32,7 @@ export default function History({ refreshKey }) {
   }, [load, refreshKey]);
 
   async function clearHistory() {
-    await axios.delete("/api/scan/history");
+    await api.delete("/api/scan/history");
     setItems([]);
   }
 
